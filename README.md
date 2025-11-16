@@ -4,7 +4,7 @@ A minimal, zero-infrastructure TRMNL plugin that displays real-time BART (Bay Ar
 
 You enter an origin station and a destintation station and you'll get the next 2-3 departure times. Multiple views for personalized dashboards with various commutes.
 
-[alt text](https://github.com/jetsharklambo/BARTcom-TRMNL/blob/main/BARTcom.png) "BARTcom Fullscreen"
+![BARTcom Fullscreen](https://github.com/jetsharklambo/BARTcom-TRMNL/blob/main/BARTcom.png) 
 
 ## Features
 
