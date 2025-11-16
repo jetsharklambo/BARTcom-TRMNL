@@ -101,9 +101,6 @@ Choose your template based on your device screen:
 | `bart-tile-grid.liquid` | Small | 2 | Limited space, 2-column grid |
 | `bart-tile-vertical.liquid` | Tall | 3 | Vertical orientation, tall devices |
 
-## Do I Need Cloudflare?
-
-**No!** This plugin calls BART's API directly from your TRMNL device. Zero infrastructure, no servers, no Cloudflare Worker needed. Just pure direct API calls.
 
 ## License
 
