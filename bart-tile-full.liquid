@@ -79,12 +79,12 @@
               {% endif %}
             </div>
 
-            <div class="value value--medium text--white" style="line-height: 1.0; white-space: nowrap;">
+            <div class="value value--medium text--white my--3" style="line-height: 1.0; white-space: nowrap;">
               {{ trip['@origTimeMin'] }}
             </div>
-            <div class="label label--xsmall text--white">DEPART</div>
-            <div class="divider" style="border-color: rgba(255,255,255,0.3);"></div>
-            <div class="label label--xsmall text--white">ARRIVE {{ trip['@destTimeMin'] }}</div>
+            <div class="label label--xsmall text--white mb--2">DEPART</div>
+            <div class="divider my--3" style="border-color: rgba(255,255,255,0.3);"></div>
+            <div class="label label--xsmall text--white mt--2">ARRIVE {{ trip['@destTimeMin'] }}</div>
           </div>
         </div>
       {% endfor %}

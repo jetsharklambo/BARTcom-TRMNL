@@ -12,7 +12,7 @@
           <div class="content layout--col">
 
             <!-- Train Line Badges -->
-            <div class="flex flex--wrap gap--small pb--xsmall">
+            <div class="flex flex--wrap gap--small mb--4">
               {% if trip.leg[0] %}
                 {% assign leg_count = 0 %}
                 {% for leg in trip.leg %}
@@ -80,11 +80,11 @@
               {% endif %}
             </div>
 
-            <div class="value value--medium text--white" style="line-height: 1.0; font-size: 2.5em;">
+            <div class="value value--medium text--white my--4" style="line-height: 1.0; font-size: 2.5em;">
               {{ trip['@origTimeMin'] }}
             </div>
-              <div class="divider mb--xsmall" style="border-color: rgba(255,255,255,0.3);"></div>
-            <div class="label label--xsmall text--white">ARRIVE {{ trip['@destTimeMin'] }}</div>
+              <div class="divider my--3" style="border-color: rgba(255,255,255,0.3);"></div>
+            <div class="label label--xsmall text--white mt--3">ARRIVE {{ trip['@destTimeMin'] }}</div>
           </div>
         </div>
       {% endfor %}
