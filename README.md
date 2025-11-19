@@ -23,6 +23,14 @@ Multiple views for unlimited mashup potential.
 
 ### Installation
 
+#### Auto
+
+1. **Visit** https://usetrmnl.com/recipes/181434
+2. Click **install**
+3. **Configure & Save** - Select your BART origin and destination stations
+4. **Set polling interval** in your TRMNL device settings (default: 15 minutes)
+
+#### Manual
 1. **Log into TRMNL** at https://dashboard.trmnl.com
 2. **Create a new Private Plugin**
 3. **Paste Form Fields**
