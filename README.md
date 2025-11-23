@@ -7,7 +7,7 @@ You enter an origin station and a destintation station and you'll get the next 2
 ![BARTcom Fullscreen](https://github.com/jetsharklambo/BARTcom-TRMNL/blob/main/BARTcom.png) 
 
 Multiple views for unlimited mashup potential.
-![BARTcom Fullscreen](https://github.com/jetsharklambo/BARTcom-TRMNL/blob/main/mashup.png) 
+![BARTcom half-vertical](https://github.com/jetsharklambo/BARTcom-TRMNL/blob/main/mashup.png) 
 
 ## Features
 
