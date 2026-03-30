@@ -112,13 +112,13 @@
     <!-- Title Bar -->
  
 
-    <div class="grid grid--cols-2 gap--medium">
-      {% for trip in trips limit:2 %}
-        <div class="item bg--black rounded--medium p--4">
+    <div class="grid grid--cols-2 pt--5 gap--xsmall">
+      {% for trip in trips limit:4 %}
+        <div class="item bg--black rounded--medium p--2">
           <div class="content layout--col gap--small">
 
             <!-- Train Line Badges -->
-            <div class="flex flex--wrap gap--small mb--medium">
+            <div class="flex flex--wrap gap--small mb--small">
               {% if trip.leg[0] %}
                 {% assign leg_count = 0 %}
                 {% for leg in trip.leg %}
@@ -165,8 +165,8 @@
             <div class="value value--small text--white">
               {{ trip['@origTimeMin'] }}
             </div>
-            <div class="divider"></div>
-            <div class="label label--small text--white">ARRIVE {{ trip['@destTimeMin'] }}</div>
+  
+           
           </div>
         </div>
       {% endfor %}

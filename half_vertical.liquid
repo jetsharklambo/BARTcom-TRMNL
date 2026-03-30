@@ -3,8 +3,8 @@
     {% assign trips = root.schedule.request.trip %}
 
     <!-- Trip Cards - Two Column Layout -->
-    <div class="grid grid--cols-2 gap--small">
-    {% for trip in trips limit:4 %}
+    <div class="grid grid--cols-2 pb--1 gap--small">
+    {% for trip in trips limit:6 %}
       <div class="item bg--black rounded--medium p--2">
         <div class="content layout--col gap--small">
 
