@@ -1,93 +1,67 @@
-<div class="layout layout--col gap--large">
-  <!-- Header: Origin → Destination -->
-  <div class="header">
-    <div class="title title--large">{{ root.origin }} → {{ root.destination }}</div>
-  </div>
-
+<div class="layout layout--col gap--small" style="width: 100%;">
   {% if root.schedule.request.trip %}
-    <div class="layout layout--col gap--medium">
-      {% assign trips = root.schedule.request.trip %}
-      {% for trip in trips limit:3 %}
-        <div class="item bg--black rounded--medium" style="padding: 10px;">
-          <div class="content layout--col">
+    {% assign trips = root.schedule.request.trip %}
 
-            <!-- Train Line Badges -->
-            <div class="flex flex--wrap gap--small">
-              {% if trip.leg[0] %}
-                {% assign leg_count = 0 %}
-                {% for leg in trip.leg %}
-                  {% assign heading_lower = leg['@trainHeadStation'] | downcase %}
-                  {% if heading_lower contains 'richmond' %}
-                    {% assign abbreviation = 'RICH' %}
-                  {% elsif heading_lower contains 'millbrae' %}
-                    {% assign abbreviation = 'MLBR' %}
-                  {% elsif heading_lower contains 'dublin' %}
-                    {% assign abbreviation = 'DUBL' %}
-                  {% elsif heading_lower contains 'berryessa' %}
-                    {% assign abbreviation = 'BERY' %}
-                  {% elsif heading_lower contains 'daly' %}
-                    {% assign abbreviation = 'DALY' %}
-                  {% elsif heading_lower contains 'antioch' %}
-                    {% assign abbreviation = 'ANTC' %}
-                  {% elsif heading_lower contains 'pittsburg' %}
-                    {% assign abbreviation = 'PITT' %}
-                  {% elsif heading_lower contains 'sfo' or heading_lower contains 'international airport' %}
-                    {% assign abbreviation = 'SFIA' %}
-                  {% elsif heading_lower contains 'oakland airport' %}
-                    {% assign abbreviation = 'OAKL' %}
-                  {% else %}
-                    {% assign abbreviation = leg['@trainHeadStation'] %}
-                  {% endif %}
+    <!-- Trip Cards - Two Column Layout -->
+    <div class="grid grid--cols-2 gap--small">
+    {% for trip in trips limit:4 %}
+      <div class="item bg--black rounded--medium p--2">
+        <div class="content layout--col gap--small">
 
-                  {% if abbreviation and leg_count < 2 %}
-                    <div class="bg--white rounded--small">
-                      <div class="label label--small text--black label--outline" style="font-weight: bold; white-space: nowrap;">
-                      {{ abbreviation }}
-                      </div>
-                    </div>
-                    {% assign leg_count = leg_count | plus: 1 %}
-                  {% endif %}
-                {% endfor %}
-              {% else %}
-                {% assign leg = trip.leg %}
+          <!-- Train Line Badges -->
+          <div class="flex flex--wrap gap--small mb--medium">
+            {% if trip.leg[0] %}
+              {% assign leg_count = 0 %}
+              {% for leg in trip.leg %}
                 {% assign heading_lower = leg['@trainHeadStation'] | downcase %}
-                {% if heading_lower contains 'richmond' %}
-                  {% assign abbreviation = 'RICH' %}
-                {% elsif heading_lower contains 'millbrae' %}
-                  {% assign abbreviation = 'MLBR' %}
-                {% elsif heading_lower contains 'dublin' %}
-                  {% assign abbreviation = 'DUBL' %}
-                {% elsif heading_lower contains 'berryessa' %}
-                  {% assign abbreviation = 'BERY' %}
-                {% elsif heading_lower contains 'daly' %}
-                  {% assign abbreviation = 'DALY' %}
-                {% elsif heading_lower contains 'antioch' %}
-                  {% assign abbreviation = 'ANTC' %}
-                {% elsif heading_lower contains 'pittsburg' %}
-                  {% assign abbreviation = 'PITT' %}
-                {% elsif heading_lower contains 'sfo' or heading_lower contains 'international airport' %}
-                  {% assign abbreviation = 'SFIA' %}
-                {% elsif heading_lower contains 'oakland airport' %}
-                  {% assign abbreviation = 'OAKL' %}
-                {% else %}
-                  {% assign abbreviation = leg['@trainHeadStation'] %}
+                {% if heading_lower contains 'richmond' %}{% assign abbreviation = 'RICH' %}
+                {% elsif heading_lower contains 'millbrae' %}{% assign abbreviation = 'MLBR' %}
+                {% elsif heading_lower contains 'dublin' %}{% assign abbreviation = 'DUBL' %}
+                {% elsif heading_lower contains 'berryessa' %}{% assign abbreviation = 'BERY' %}
+                {% elsif heading_lower contains 'daly' %}{% assign abbreviation = 'DALY' %}
+                {% elsif heading_lower contains 'antioch' %}{% assign abbreviation = 'ANTC' %}
+                {% elsif heading_lower contains 'pittsburg' %}{% assign abbreviation = 'PITT' %}
+                {% elsif heading_lower contains 'sfo' or heading_lower contains 'international airport' or heading_lower contains 'francisco inter' %}{% assign abbreviation = 'SFIA' %}
+                {% elsif heading_lower contains 'oakland airport' or heading_lower contains 'oakland air' %}{% assign abbreviation = 'OAKL' %}
+                {% else %}{% assign abbreviation = leg['@trainHeadStation'] %}
                 {% endif %}
-                <div class="bg--white rounded--small">
-                  <div class="label label--small text--black label--outline" style="font-weight: bold; white-space: nowrap;">
-                     {{ abbreviation }}
-                  </div>
-                </div>
-              {% endif %}
-            </div>
 
-            <div class="value value--medium text--white" style="line-height: 1.0; white-space: nowrap;">
-              {{ trip['@origTimeMin'] }}
-            </div>
-            <div class="divider"></div>
-            <div class="label label--small text--white">ARRIVE {{ trip['@destTimeMin'] }}</div>
+                {% if abbreviation and leg_count < 2 %}
+                  <span class="label bg--white rounded--small p--0.5 text--black">
+                    {{ abbreviation }}
+                  </span>
+                  {% assign leg_count = leg_count | plus: 1 %}
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              {% assign leg = trip.leg %}
+              {% assign heading_lower = leg['@trainHeadStation'] | downcase %}
+              {% if heading_lower contains 'richmond' %}{% assign abbreviation = 'RICH' %}
+              {% elsif heading_lower contains 'millbrae' %}{% assign abbreviation = 'MLBR' %}
+              {% elsif heading_lower contains 'dublin' %}{% assign abbreviation = 'DUBL' %}
+              {% elsif heading_lower contains 'berryessa' %}{% assign abbreviation = 'BERY' %}
+              {% elsif heading_lower contains 'daly' %}{% assign abbreviation = 'DALY' %}
+              {% elsif heading_lower contains 'antioch' %}{% assign abbreviation = 'ANTC' %}
+              {% elsif heading_lower contains 'pittsburg' %}{% assign abbreviation = 'PITT' %}
+              {% elsif heading_lower contains 'sfo' or heading_lower contains 'international airport' or heading_lower contains 'francisco inter' %}{% assign abbreviation = 'SFIA' %}
+              {% elsif heading_lower contains 'oakland airport' or heading_lower contains 'oakland air' %}{% assign abbreviation = 'OAKL' %}
+              {% else %}{% assign abbreviation = leg['@trainHeadStation'] %}
+              {% endif %}
+              <span class="label bg--white rounded--small p--1 text--black">
+                {{ abbreviation }}
+              </span>
+            {% endif %}
           </div>
+
+          <div class="value value--small text--white">
+            {{ trip['@origTimeMin'] }}
+          </div>
+          <div class="label label--xxsmall text--white">DEPART</div>
+          <div class="divider"></div>
+          <div class="label label--xxsmall text--gray-40">ARRIVE {{ trip['@destTimeMin'] }}</div>
         </div>
-      {% endfor %}
+      </div>
+    {% endfor %}
     </div>
   {% else %}
     <!-- Error State: No data -->
@@ -96,13 +70,123 @@
         <div class="value value--xlarge">⚠️</div>
         <div class="label label--small">No schedule available</div>
         {% if root.message.error %}
-          <div class="label label--xsmall">{{ root.message.error.text }}</div>
+          <div class="label label--small">{{ root.message.error.text }}</div>
         {% endif %}
       </div>
     </div>
   {% endif %}
 
-  <div class="footer">
-    <div class="divider"></div>
+
+  <!-- Station abbreviation logic for title bar -->
+  {% assign origin_lower = root.origin | downcase | strip %}
+  {% if origin_lower == '12th' or origin_lower contains '12th' %}{% assign origin_abbr = '12TH' %}
+  {% elsif origin_lower == '16th' or origin_lower contains '16th' %}{% assign origin_abbr = '16TH' %}
+  {% elsif origin_lower == '19th' or origin_lower contains '19th' %}{% assign origin_abbr = '19TH' %}
+  {% elsif origin_lower == '24th' or origin_lower contains '24th' %}{% assign origin_abbr = '24TH' %}
+  {% elsif origin_lower == 'antc' or origin_lower contains 'antioch' %}{% assign origin_abbr = 'ANTC' %}
+  {% elsif origin_lower == 'ashb' or origin_lower contains 'ashby' %}{% assign origin_abbr = 'ASHB' %}
+  {% elsif origin_lower == 'balb' or origin_lower contains 'balboa' %}{% assign origin_abbr = 'BALB' %}
+  {% elsif origin_lower == 'bayf' or origin_lower contains 'bay fair' %}{% assign origin_abbr = 'BAYF' %}
+  {% elsif origin_lower == 'bery' or origin_lower contains 'berryessa' or origin_lower contains 'north san jose' %}{% assign origin_abbr = 'BERY' %}
+  {% elsif origin_lower == 'cast' or origin_lower contains 'castro valley' %}{% assign origin_abbr = 'CAST' %}
+  {% elsif origin_lower == 'civc' or origin_lower contains 'civic' %}{% assign origin_abbr = 'CIVC' %}
+  {% elsif origin_lower == 'cols' or origin_lower contains 'coliseum' %}{% assign origin_abbr = 'COLS' %}
+  {% elsif origin_lower == 'colm' or origin_lower contains 'colma' %}{% assign origin_abbr = 'COLM' %}
+  {% elsif origin_lower == 'ncon' or origin_lower contains 'concord' and origin_lower contains 'north' %}{% assign origin_abbr = 'NCON' %}
+  {% elsif origin_lower == 'conc' or origin_lower contains 'concord' %}{% assign origin_abbr = 'CONC' %}
+  {% elsif origin_lower == 'daly' or origin_lower contains 'daly' %}{% assign origin_abbr = 'DALY' %}
+  {% elsif origin_lower == 'dbrk' or origin_lower contains 'downtown berkeley' %}{% assign origin_abbr = 'DBRK' %}
+  {% elsif origin_lower == 'dubl' or origin_lower == 'wdub' or origin_lower contains 'dublin' or origin_lower contains 'pleasanton' %}{% assign origin_abbr = 'DUBL' %}
+  {% elsif origin_lower == 'deln' or origin_lower contains 'el cerrito del norte' %}{% assign origin_abbr = 'DELN' %}
+  {% elsif origin_lower == 'plza' or origin_lower contains 'el cerrito plaza' %}{% assign origin_abbr = 'PLZA' %}
+  {% elsif origin_lower == 'embr' or origin_lower contains 'embarcadero' %}{% assign origin_abbr = 'EMBR' %}
+  {% elsif origin_lower == 'warm' or origin_lower contains 'fremont' and origin_lower contains 'warm' or origin_lower contains 'warm springs' %}{% assign origin_abbr = 'WARM' %}
+  {% elsif origin_lower == 'frmt' or origin_lower contains 'fremont' %}{% assign origin_abbr = 'FRMT' %}
+  {% elsif origin_lower == 'ftvl' or origin_lower contains 'fruitvale' %}{% assign origin_abbr = 'FTVL' %}
+  {% elsif origin_lower == 'glen' or origin_lower contains 'glen park' %}{% assign origin_abbr = 'GLEN' %}
+  {% elsif origin_lower == 'shay' or origin_lower contains 'hayward' and origin_lower contains 'south' %}{% assign origin_abbr = 'SHAY' %}
+  {% elsif origin_lower == 'hayw' or origin_lower contains 'hayward' %}{% assign origin_abbr = 'HAYW' %}
+  {% elsif origin_lower == 'lafy' or origin_lower contains 'lafayette' %}{% assign origin_abbr = 'LAFY' %}
+  {% elsif origin_lower == 'lake' or origin_lower contains 'lake merritt' %}{% assign origin_abbr = 'LAKE' %}
+  {% elsif origin_lower == 'mcar' or origin_lower contains 'macarthur' %}{% assign origin_abbr = 'MCAR' %}
+  {% elsif origin_lower == 'mlbr' or origin_lower contains 'millbrae' %}{% assign origin_abbr = 'MLBR' %}
+  {% elsif origin_lower == 'mlpt' or origin_lower contains 'milpitas' %}{% assign origin_abbr = 'MLPT' %}
+  {% elsif origin_lower == 'mont' or origin_lower contains 'montgomery' %}{% assign origin_abbr = 'MONT' %}
+  {% elsif origin_lower == 'nbrk' or origin_lower contains 'north berkeley' %}{% assign origin_abbr = 'NBRK' %}
+  {% elsif origin_lower == 'oakl' or origin_lower contains 'oakland' and origin_lower contains 'airport' %}{% assign origin_abbr = 'OAKL' %}
+  {% elsif origin_lower == 'orin' or origin_lower contains 'orinda' %}{% assign origin_abbr = 'ORIN' %}
+  {% elsif origin_lower == 'pctr' or origin_lower contains 'pittsburg center' %}{% assign origin_abbr = 'PCTR' %}
+  {% elsif origin_lower == 'pitt' or origin_lower contains 'pittsburg' or origin_lower contains 'bay point' %}{% assign origin_abbr = 'PITT' %}
+  {% elsif origin_lower == 'phil' or origin_lower contains 'pleasant hill' %}{% assign origin_abbr = 'PHIL' %}
+  {% elsif origin_lower == 'powl' or origin_lower contains 'powell' %}{% assign origin_abbr = 'POWL' %}
+  {% elsif origin_lower == 'rich' or origin_lower contains 'richmond' %}{% assign origin_abbr = 'RICH' %}
+  {% elsif origin_lower == 'rock' or origin_lower contains 'rockridge' %}{% assign origin_abbr = 'ROCK' %}
+  {% elsif origin_lower == 'sbrn' or origin_lower contains 'san bruno' %}{% assign origin_abbr = 'SBRN' %}
+  {% elsif origin_lower == 'sfia' or origin_lower contains 'sfo' or origin_lower contains 'san francisco' and origin_lower contains 'airport' or origin_lower contains 'international airport' %}{% assign origin_abbr = 'SFIA' %}
+  {% elsif origin_lower == 'sanl' or origin_lower contains 'san leandro' %}{% assign origin_abbr = 'SANL' %}
+  {% elsif origin_lower == 'ssan' or origin_lower contains 'south san francisco' %}{% assign origin_abbr = 'SSAN' %}
+  {% elsif origin_lower == 'ucty' or origin_lower contains 'union city' %}{% assign origin_abbr = 'UCTY' %}
+  {% elsif origin_lower == 'wcrk' or origin_lower contains 'walnut creek' %}{% assign origin_abbr = 'WCRK' %}
+  {% elsif origin_lower == 'woak' or origin_lower contains 'west oakland' %}{% assign origin_abbr = 'WOAK' %}
+  {% else %}{% assign origin_abbr = root.origin %}
+  {% endif %}
+
+  {% assign dest_lower = root.destination | downcase | strip %}
+  {% if dest_lower == '12th' or dest_lower contains '12th' %}{% assign dest_abbr = '12TH' %}
+  {% elsif dest_lower == '16th' or dest_lower contains '16th' %}{% assign dest_abbr = '16TH' %}
+  {% elsif dest_lower == '19th' or dest_lower contains '19th' %}{% assign dest_abbr = '19TH' %}
+  {% elsif dest_lower == '24th' or dest_lower contains '24th' %}{% assign dest_abbr = '24TH' %}
+  {% elsif dest_lower == 'antc' or dest_lower contains 'antioch' %}{% assign dest_abbr = 'ANTC' %}
+  {% elsif dest_lower == 'ashb' or dest_lower contains 'ashby' %}{% assign dest_abbr = 'ASHB' %}
+  {% elsif dest_lower == 'balb' or dest_lower contains 'balboa' %}{% assign dest_abbr = 'BALB' %}
+  {% elsif dest_lower == 'bayf' or dest_lower contains 'bay fair' %}{% assign dest_abbr = 'BAYF' %}
+  {% elsif dest_lower == 'bery' or dest_lower contains 'berryessa' or dest_lower contains 'north san jose' %}{% assign dest_abbr = 'BERY' %}
+  {% elsif dest_lower == 'cast' or dest_lower contains 'castro valley' %}{% assign dest_abbr = 'CAST' %}
+  {% elsif dest_lower == 'civc' or dest_lower contains 'civic' %}{% assign dest_abbr = 'CIVC' %}
+  {% elsif dest_lower == 'cols' or dest_lower contains 'coliseum' %}{% assign dest_abbr = 'COLS' %}
+  {% elsif dest_lower == 'colm' or dest_lower contains 'colma' %}{% assign dest_abbr = 'COLM' %}
+  {% elsif dest_lower == 'ncon' or dest_lower contains 'concord' and dest_lower contains 'north' %}{% assign dest_abbr = 'NCON' %}
+  {% elsif dest_lower == 'conc' or dest_lower contains 'concord' %}{% assign dest_abbr = 'CONC' %}
+  {% elsif dest_lower == 'daly' or dest_lower contains 'daly' %}{% assign dest_abbr = 'DALY' %}
+  {% elsif dest_lower == 'dbrk' or dest_lower contains 'downtown berkeley' %}{% assign dest_abbr = 'DBRK' %}
+  {% elsif dest_lower == 'dubl' or dest_lower == 'wdub' or dest_lower contains 'dublin' or dest_lower contains 'pleasanton' %}{% assign dest_abbr = 'DUBL' %}
+  {% elsif dest_lower == 'deln' or dest_lower contains 'el cerrito del norte' %}{% assign dest_abbr = 'DELN' %}
+  {% elsif dest_lower == 'plza' or dest_lower contains 'el cerrito plaza' %}{% assign dest_abbr = 'PLZA' %}
+  {% elsif dest_lower == 'embr' or dest_lower contains 'embarcadero' %}{% assign dest_abbr = 'EMBR' %}
+  {% elsif dest_lower == 'warm' or dest_lower contains 'fremont' and dest_lower contains 'warm' or dest_lower contains 'warm springs' %}{% assign dest_abbr = 'WARM' %}
+  {% elsif dest_lower == 'frmt' or dest_lower contains 'fremont' %}{% assign dest_abbr = 'FRMT' %}
+  {% elsif dest_lower == 'ftvl' or dest_lower contains 'fruitvale' %}{% assign dest_abbr = 'FTVL' %}
+  {% elsif dest_lower == 'glen' or dest_lower contains 'glen park' %}{% assign dest_abbr = 'GLEN' %}
+  {% elsif dest_lower == 'shay' or dest_lower contains 'hayward' and dest_lower contains 'south' %}{% assign dest_abbr = 'SHAY' %}
+  {% elsif dest_lower == 'hayw' or dest_lower contains 'hayward' %}{% assign dest_abbr = 'HAYW' %}
+  {% elsif dest_lower == 'lafy' or dest_lower contains 'lafayette' %}{% assign dest_abbr = 'LAFY' %}
+  {% elsif dest_lower == 'lake' or dest_lower contains 'lake merritt' %}{% assign dest_abbr = 'LAKE' %}
+  {% elsif dest_lower == 'mcar' or dest_lower contains 'macarthur' %}{% assign dest_abbr = 'MCAR' %}
+  {% elsif dest_lower == 'mlbr' or dest_lower contains 'millbrae' %}{% assign dest_abbr = 'MLBR' %}
+  {% elsif dest_lower == 'mlpt' or dest_lower contains 'milpitas' %}{% assign dest_abbr = 'MLPT' %}
+  {% elsif dest_lower == 'mont' or dest_lower contains 'montgomery' %}{% assign dest_abbr = 'MONT' %}
+  {% elsif dest_lower == 'nbrk' or dest_lower contains 'north berkeley' %}{% assign dest_abbr = 'NBRK' %}
+  {% elsif dest_lower == 'oakl' or dest_lower contains 'oakland' and dest_lower contains 'airport' %}{% assign dest_abbr = 'OAKL' %}
+  {% elsif dest_lower == 'orin' or dest_lower contains 'orinda' %}{% assign dest_abbr = 'ORIN' %}
+  {% elsif dest_lower == 'pctr' or dest_lower contains 'pittsburg center' %}{% assign dest_abbr = 'PCTR' %}
+  {% elsif dest_lower == 'pitt' or dest_lower contains 'pittsburg' or dest_lower contains 'bay point' %}{% assign dest_abbr = 'PITT' %}
+  {% elsif dest_lower == 'phil' or dest_lower contains 'pleasant hill' %}{% assign dest_abbr = 'PHIL' %}
+  {% elsif dest_lower == 'powl' or dest_lower contains 'powell' %}{% assign dest_abbr = 'POWL' %}
+  {% elsif dest_lower == 'rich' or dest_lower contains 'richmond' %}{% assign dest_abbr = 'RICH' %}
+  {% elsif dest_lower == 'rock' or dest_lower contains 'rockridge' %}{% assign dest_abbr = 'ROCK' %}
+  {% elsif dest_lower == 'sbrn' or dest_lower contains 'san bruno' %}{% assign dest_abbr = 'SBRN' %}
+  {% elsif dest_lower == 'sfia' or dest_lower contains 'sfo' or dest_lower contains 'san francisco' and dest_lower contains 'airport' or dest_lower contains 'international airport' %}{% assign dest_abbr = 'SFIA' %}
+  {% elsif dest_lower == 'sanl' or dest_lower contains 'san leandro' %}{% assign dest_abbr = 'SANL' %}
+  {% elsif dest_lower == 'ssan' or dest_lower contains 'south san francisco' %}{% assign dest_abbr = 'SSAN' %}
+  {% elsif dest_lower == 'ucty' or dest_lower contains 'union city' %}{% assign dest_abbr = 'UCTY' %}
+  {% elsif dest_lower == 'wcrk' or dest_lower contains 'walnut creek' %}{% assign dest_abbr = 'WCRK' %}
+  {% elsif dest_lower == 'woak' or dest_lower contains 'west oakland' %}{% assign dest_abbr = 'WOAK' %}
+  {% else %}{% assign dest_abbr = root.destination %}
+  {% endif %}
+</div>
+  <!-- Title Bar at Bottom -->
+  <div class="title_bar rounded bg--white" style="border: 2px solid #000">
+    <img class="image image-stroke--small" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgdmVyc2lvbj0iMS4xIgogICB4PSIwcHgiCiAgIHk9IjBweCIKICAgdmlld0JveD0iLTkuNjkzIDAuMDYzIDk2LjY1ODAwMSAxMDAiCiAgIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgLTkuNjkzIDAuMDYzIDk2LjY1OSAxMDAiCiAgIHhtbDpzcGFjZT0icHJlc2VydmUiCiAgIGlkPSJzdmc4IgogICBzb2RpcG9kaTpkb2NuYW1lPSJub3VuLXRyYWluLTE3MDcuc3ZnIgogICB3aWR0aD0iOTYuNjU3OTk3IgogICBoZWlnaHQ9IjEwMCIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMS4yIChkYzJhZWRhZjAzLCAyMDIyLTA1LTE1KSIKICAgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiCiAgIHhtbG5zOnNvZGlwb2RpPSJodHRwOi8vc29kaXBvZGkuc291cmNlZm9yZ2UubmV0L0RURC9zb2RpcG9kaS0wLmR0ZCIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcwogICAgIGlkPSJkZWZzMTIiIC8+PHNvZGlwb2RpOm5hbWVkdmlldwogICAgIGlkPSJuYW1lZHZpZXcxMCIKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiMwMDAwMDAiCiAgICAgYm9yZGVyb3BhY2l0eT0iMC4yNSIKICAgICBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIgogICAgIGlua3NjYXBlOnBhZ2VjaGVja2VyYm9hcmQ9IjAiCiAgICBpbmtzY2FwZTpkZXNrY29sb3I9IiNkMWQxZDEiCiAgICAgc2hvd2dyaWQ9ImZhbHNlIgogICAgIGlua3NjYXBlOnpvb209IjEuODg4IgogICAgIGlua3NjYXBlOmN4PSI0OC4xOTkxNTMiCiAgICAgaW5rc2NhcGU6Y3k9IjQ3LjY2OTQ5MiIKICAgICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjE5MjAiCiAgICAgaW5rc2NhcGU6d2luZG93LWhlaWdodD0iMTE3NCIKICAgICBpbmtzY2FwZTp3aW5kb3cteD0iLTExIgogICAgIGlua3NjYXBlOndpbmRvdy15PSItMTEiCiAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9InN2ZzgiIC8+PHBhdGgKICAgICBkPSJNIDg2LjAyMiw0Ni43OTYgODEuMjQzLDEzLjMyNyBDIDgwLjcyNCw5LjcgNzcuNjE2LDUuMzg4IDc0LjMzNywzLjc0OCBjIDAsMCAtNy4zNzEsLTMuNjg1IC0zNC4wMjksLTMuNjg1IC0yNi42NjcsMCAtMzcuMzcxLDMuNjg1IC0zNy4zNzEsMy42ODUgLTMuMjgsMS42NCAtNi4zODksNS45NTIgLTYuOTA3LDkuNTc5IGwgLTQuNzc5LDMzLjQ2OSBjIC0wLjUxOSwzLjYyNyAtMC45NDQsOS42MDIgLTAuOTQ0LDEzLjI2OCAwLDMuNjY2IDEuMzQ2LDkuMzQzIDIuOTc4LDEyLjYyMiBsIDAuNzA0LDEuNDA3IGMgMS42NDcsMy4yNzkgNS44OTMsNi42OTcgOS40NTEsNy41NzkgbCAzLjUzNSwwLjg5IHYgNy40OTQwMDIgTCAzLjY0LDEwMC4wNjMgaCA2LjY2NyBsIDIuMjIsLTYuNjY2OTk4IGggNTIuMjE5IGwgMi4yMiw2LjY2Njk5OCBoIDYuNjY3IEwgNzAuMyw5MC4wNTYwMDIgViA4Mi41NjIgbCAzLjUzNCwtMC44OSBjIDMuNTU4LC0wLjg4MiA3LjgxMiwtNC4zIDkuNDUxLC03LjU3OSBsIDAuNjk1LC0xLjQwNyBjIDEuNjQsLTMuMjc5IDIuOTg1LC04Ljk1NiAyLjk4NSwtMTIuNjIyIDAsLTMuNjY2IC0wLjQyNCwtOS42NDEgLTAuOTQzLC0xMy4yNjggeiBtIC04MC43MTksMjYuNiBjIC0yLjc2MSwwIC00Ljk5NiwtMi4yNDIgLTQuOTk2LC01LjAwNCAwLC0yLjc2MSAyLjIzNSwtNS4wMDQgNC45OTYsLTUuMDA0IDIuNzYxLDAgNS4wMDQsMi4yNDMgNS4wMDQsNS4wMDQgMCwyLjc2MiAtMi4yNDMsNS4wMDQgLTUuMDA0LDUuMDA0IHogTSA0Mi41MjcsNTAuNzI5IGMgMCwxLjQ2NiAtMS4xOTksMi42NjQgLTIuNjY5LDIuNjY0IEggMi42MDQgYyAtMS40NywwIC0yLjUyMSwtMS4xODcgLTIuMzQ0LC0yLjY0NSBMIDQuNTc1LDE2LjA0MiBjIDAuMTg2LC0xLjQ1NCAxLjUzMiwtMi42NDUgMi45OTMsLTIuNjQ1IGggMzIuMjg5IGMgMS40NjIsMCAyLjY2OSwxLjE5OSAyLjY2OSwyLjY2NCB2IDM0LjY2OCB6IG0gMjkuNDQyLDIyLjY2NyBjIC0yLjc2MSwwIC01LjAwNCwtMi4yNDIgLTUuMDA0LC01LjAwNCAwLC0yLjc2MSAyLjI0MywtNS4wMDQgNS4wMDQsLTUuMDA0IDIuNzYyLDAgNC45OTYsMi4yNDMgNC45OTYsNS4wMDQgMTBlLTQsMi43NjIgLTIuMjM0LDUuMDA0IC00Ljk5Niw1LjAwNCB6IgogICAgIGlkPSJwYXRoMiIgLz48L3N2Zz4K">
+    <span class="title">{{ origin_abbr }} → {{ dest_abbr }}</span>
   </div>
 </div>
