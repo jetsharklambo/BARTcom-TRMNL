@@ -8,6 +8,16 @@ common station name conversion and abbreviation mapping.
 
 {%- comment -%}
 ========================================
+TRAIN SVG ICON
+========================================
+Optimized train icon SVG for use across all templates.
+Use with: {{ train_svg | base64_encode }}
+{%- endcomment -%}
+
+{% capture train_svg %}<svg viewBox="-9.693 0.063 96.658 100" width="90%" height="90%" xmlns="http://www.w3.org/2000/svg"><path d="M 86.022,46.796 81.243,13.327 C 80.724,9.7 77.616,5.388 74.337,3.748 c 0,0 -7.371,-3.685 -34.029,-3.685 -26.667,0 -37.371,3.685 -37.371,3.685 -3.28,1.64 -6.389,5.952 -6.907,9.579 l -4.779,33.469 c -0.519,3.627 -0.944,9.602 -0.944,13.268 0,3.666 1.346,9.343 2.978,12.622 l 0.704,1.407 c 1.647,3.279 5.893,6.697 9.451,7.579 l 3.535,0.89 v 7.494002 L 3.64,100.063 h 6.667 l 2.22,-6.666998 h 52.219 l 2.22,6.666998 h 6.667 L 70.3,90.056002 V 82.562 l 3.534,-0.89 c 3.558,-0.882 7.812,-4.3 9.451,-7.579 l 0.695,-1.407 c 1.64,-3.279 2.985,-8.956 2.985,-12.622 0,-3.666 -0.424,-9.641 -0.943,-13.268 z m -80.719,26.6 c -2.761,0 -4.996,-2.242 -4.996,-5.004 0,-2.761 2.235,-5.004 4.996,-5.004 2.761,0 5.004,2.243 5.004,5.004 0,2.762 -2.243,5.004 -5.004,5.004 z M 42.527,50.729 c 0,1.466 -1.199,2.664 -2.669,2.664 H 2.604 c -1.47,0 -2.521,-1.187 -2.344,-2.645 L 4.575,16.042 c 0.186,-1.454 1.532,-2.645 2.993,-2.645 h 32.289 c 1.462,0 2.669,1.199 2.669,2.664 v 34.668 z m 29.442,22.667 c -2.761,0 -5.004,-2.242 -5.004,-5.004 0,-2.761 2.243,-5.004 5.004,-5.004 2.762,0 4.996,2.243 4.996,5.004 10e-4,2.762 -2.234,5.004 -4.996,5.004 z"/></svg>{% endcapture %}
+
+{%- comment -%}
+========================================
 STATION NAME CONVERSION
 ========================================
 Converts BART station abbreviations to full display names.
@@ -152,3 +162,117 @@ CANONICAL ABBREVIATION LOOKUP PATTERN (copy this into templates):
 {% endif %}
 
 {%- endcomment -%}
+
+{%- comment -%}
+========================================
+STATION ABBREVIATION MAPPING
+========================================
+Converts full station names to 4-letter abbreviations for compact display.
+Sets origin_abbr and dest_abbr variables for all templates.
+{%- endcomment -%}
+
+{% assign origin_lower = root.origin | downcase | strip %}
+{% if origin_lower == '12th' or origin_lower contains '12th' %}{% assign origin_abbr = '12TH' %}
+{% elsif origin_lower == '16th' or origin_lower contains '16th' %}{% assign origin_abbr = '16TH' %}
+{% elsif origin_lower == '19th' or origin_lower contains '19th' %}{% assign origin_abbr = '19TH' %}
+{% elsif origin_lower == '24th' or origin_lower contains '24th' %}{% assign origin_abbr = '24TH' %}
+{% elsif origin_lower == 'antc' or origin_lower contains 'antioch' %}{% assign origin_abbr = 'ANTC' %}
+{% elsif origin_lower == 'ashb' or origin_lower contains 'ashby' %}{% assign origin_abbr = 'ASHB' %}
+{% elsif origin_lower == 'balb' or origin_lower contains 'balboa' %}{% assign origin_abbr = 'BALB' %}
+{% elsif origin_lower == 'bayf' or origin_lower contains 'bay fair' %}{% assign origin_abbr = 'BAYF' %}
+{% elsif origin_lower == 'bery' or origin_lower contains 'berryessa' or origin_lower contains 'north san jose' %}{% assign origin_abbr = 'BERY' %}
+{% elsif origin_lower == 'cast' or origin_lower contains 'castro valley' %}{% assign origin_abbr = 'CAST' %}
+{% elsif origin_lower == 'civc' or origin_lower contains 'civic' %}{% assign origin_abbr = 'CIVC' %}
+{% elsif origin_lower == 'cols' or origin_lower contains 'coliseum' %}{% assign origin_abbr = 'COLS' %}
+{% elsif origin_lower == 'colm' or origin_lower contains 'colma' %}{% assign origin_abbr = 'COLM' %}
+{% elsif origin_lower == 'ncon' or origin_lower contains 'concord' and origin_lower contains 'north' %}{% assign origin_abbr = 'NCON' %}
+{% elsif origin_lower == 'conc' or origin_lower contains 'concord' %}{% assign origin_abbr = 'CONC' %}
+{% elsif origin_lower == 'daly' or origin_lower contains 'daly' %}{% assign origin_abbr = 'DALY' %}
+{% elsif origin_lower == 'dbrk' or origin_lower contains 'downtown berkeley' %}{% assign origin_abbr = 'DBRK' %}
+{% elsif origin_lower == 'dubl' or origin_lower == 'wdub' or origin_lower contains 'dublin' or origin_lower contains 'pleasanton' %}{% assign origin_abbr = 'DUBL' %}
+{% elsif origin_lower == 'deln' or origin_lower contains 'el cerrito del norte' %}{% assign origin_abbr = 'DELN' %}
+{% elsif origin_lower == 'plza' or origin_lower contains 'el cerrito plaza' %}{% assign origin_abbr = 'PLZA' %}
+{% elsif origin_lower == 'embr' or origin_lower contains 'embarcadero' %}{% assign origin_abbr = 'EMBR' %}
+{% elsif origin_lower == 'warm' or origin_lower contains 'fremont' and origin_lower contains 'warm' or origin_lower contains 'warm springs' %}{% assign origin_abbr = 'WARM' %}
+{% elsif origin_lower == 'frmt' or origin_lower contains 'fremont' %}{% assign origin_abbr = 'FRMT' %}
+{% elsif origin_lower == 'ftvl' or origin_lower contains 'fruitvale' %}{% assign origin_abbr = 'FTVL' %}
+{% elsif origin_lower == 'glen' or origin_lower contains 'glen park' %}{% assign origin_abbr = 'GLEN' %}
+{% elsif origin_lower == 'shay' or origin_lower contains 'hayward' and origin_lower contains 'south' %}{% assign origin_abbr = 'SHAY' %}
+{% elsif origin_lower == 'hayw' or origin_lower contains 'hayward' %}{% assign origin_abbr = 'HAYW' %}
+{% elsif origin_lower == 'lafy' or origin_lower contains 'lafayette' %}{% assign origin_abbr = 'LAFY' %}
+{% elsif origin_lower == 'lake' or origin_lower contains 'lake merritt' %}{% assign origin_abbr = 'LAKE' %}
+{% elsif origin_lower == 'mcar' or origin_lower contains 'macarthur' %}{% assign origin_abbr = 'MCAR' %}
+{% elsif origin_lower == 'mlbr' or origin_lower contains 'millbrae' %}{% assign origin_abbr = 'MLBR' %}
+{% elsif origin_lower == 'mlpt' or origin_lower contains 'milpitas' %}{% assign origin_abbr = 'MLPT' %}
+{% elsif origin_lower == 'mont' or origin_lower contains 'montgomery' %}{% assign origin_abbr = 'MONT' %}
+{% elsif origin_lower == 'nbrk' or origin_lower contains 'north berkeley' %}{% assign origin_abbr = 'NBRK' %}
+{% elsif origin_lower == 'oakl' or origin_lower contains 'oakland' and origin_lower contains 'airport' %}{% assign origin_abbr = 'OAKL' %}
+{% elsif origin_lower == 'orin' or origin_lower contains 'orinda' %}{% assign origin_abbr = 'ORIN' %}
+{% elsif origin_lower == 'pctr' or origin_lower contains 'pittsburg center' %}{% assign origin_abbr = 'PCTR' %}
+{% elsif origin_lower == 'pitt' or origin_lower contains 'pittsburg' or origin_lower contains 'bay point' %}{% assign origin_abbr = 'PITT' %}
+{% elsif origin_lower == 'phil' or origin_lower contains 'pleasant hill' %}{% assign origin_abbr = 'PHIL' %}
+{% elsif origin_lower == 'powl' or origin_lower contains 'powell' %}{% assign origin_abbr = 'POWL' %}
+{% elsif origin_lower == 'rich' or origin_lower contains 'richmond' %}{% assign origin_abbr = 'RICH' %}
+{% elsif origin_lower == 'rock' or origin_lower contains 'rockridge' %}{% assign origin_abbr = 'ROCK' %}
+{% elsif origin_lower == 'sbrn' or origin_lower contains 'san bruno' %}{% assign origin_abbr = 'SBRN' %}
+{% elsif origin_lower == 'sfia' or origin_lower contains 'sfo' or origin_lower contains 'san francisco' and origin_lower contains 'airport' or origin_lower contains 'international airport' %}{% assign origin_abbr = 'SFIA' %}
+{% elsif origin_lower == 'sanl' or origin_lower contains 'san leandro' %}{% assign origin_abbr = 'SANL' %}
+{% elsif origin_lower == 'ssan' or origin_lower contains 'south san francisco' %}{% assign origin_abbr = 'SSAN' %}
+{% elsif origin_lower == 'ucty' or origin_lower contains 'union city' %}{% assign origin_abbr = 'UCTY' %}
+{% elsif origin_lower == 'wcrk' or origin_lower contains 'walnut creek' %}{% assign origin_abbr = 'WCRK' %}
+{% elsif origin_lower == 'woak' or origin_lower contains 'west oakland' %}{% assign origin_abbr = 'WOAK' %}
+{% else %}{% assign origin_abbr = root.origin %}
+{% endif %}
+
+{% assign dest_lower = root.destination | downcase | strip %}
+{% if dest_lower == '12th' or dest_lower contains '12th' %}{% assign dest_abbr = '12TH' %}
+{% elsif dest_lower == '16th' or dest_lower contains '16th' %}{% assign dest_abbr = '16TH' %}
+{% elsif dest_lower == '19th' or dest_lower contains '19th' %}{% assign dest_abbr = '19TH' %}
+{% elsif dest_lower == '24th' or dest_lower contains '24th' %}{% assign dest_abbr = '24TH' %}
+{% elsif dest_lower == 'antc' or dest_lower contains 'antioch' %}{% assign dest_abbr = 'ANTC' %}
+{% elsif dest_lower == 'ashb' or dest_lower contains 'ashby' %}{% assign dest_abbr = 'ASHB' %}
+{% elsif dest_lower == 'balb' or dest_lower contains 'balboa' %}{% assign dest_abbr = 'BALB' %}
+{% elsif dest_lower == 'bayf' or dest_lower contains 'bay fair' %}{% assign dest_abbr = 'BAYF' %}
+{% elsif dest_lower == 'bery' or dest_lower contains 'berryessa' or dest_lower contains 'north san jose' %}{% assign dest_abbr = 'BERY' %}
+{% elsif dest_lower == 'cast' or dest_lower contains 'castro valley' %}{% assign dest_abbr = 'CAST' %}
+{% elsif dest_lower == 'civc' or dest_lower contains 'civic' %}{% assign dest_abbr = 'CIVC' %}
+{% elsif dest_lower == 'cols' or dest_lower contains 'coliseum' %}{% assign dest_abbr = 'COLS' %}
+{% elsif dest_lower == 'colm' or dest_lower contains 'colma' %}{% assign dest_abbr = 'COLM' %}
+{% elsif dest_lower == 'ncon' or dest_lower contains 'concord' and dest_lower contains 'north' %}{% assign dest_abbr = 'NCON' %}
+{% elsif dest_lower == 'conc' or dest_lower contains 'concord' %}{% assign dest_abbr = 'CONC' %}
+{% elsif dest_lower == 'daly' or dest_lower contains 'daly' %}{% assign dest_abbr = 'DALY' %}
+{% elsif dest_lower == 'dbrk' or dest_lower contains 'downtown berkeley' %}{% assign dest_abbr = 'DBRK' %}
+{% elsif dest_lower == 'dubl' or dest_lower == 'wdub' or dest_lower contains 'dublin' or dest_lower contains 'pleasanton' %}{% assign dest_abbr = 'DUBL' %}
+{% elsif dest_lower == 'deln' or dest_lower contains 'el cerrito del norte' %}{% assign dest_abbr = 'DELN' %}
+{% elsif dest_lower == 'plza' or dest_lower contains 'el cerrito plaza' %}{% assign dest_abbr = 'PLZA' %}
+{% elsif dest_lower == 'embr' or dest_lower contains 'embarcadero' %}{% assign dest_abbr = 'EMBR' %}
+{% elsif dest_lower == 'warm' or dest_lower contains 'fremont' and dest_lower contains 'warm' or dest_lower contains 'warm springs' %}{% assign dest_abbr = 'WARM' %}
+{% elsif dest_lower == 'frmt' or dest_lower contains 'fremont' %}{% assign dest_abbr = 'FRMT' %}
+{% elsif dest_lower == 'ftvl' or dest_lower contains 'fruitvale' %}{% assign dest_abbr = 'FTVL' %}
+{% elsif dest_lower == 'glen' or dest_lower contains 'glen park' %}{% assign dest_abbr = 'GLEN' %}
+{% elsif dest_lower == 'shay' or dest_lower contains 'hayward' and dest_lower contains 'south' %}{% assign dest_abbr = 'SHAY' %}
+{% elsif dest_lower == 'hayw' or dest_lower contains 'hayward' %}{% assign dest_abbr = 'HAYW' %}
+{% elsif dest_lower == 'lafy' or dest_lower contains 'lafayette' %}{% assign dest_abbr = 'LAFY' %}
+{% elsif dest_lower == 'lake' or dest_lower contains 'lake merritt' %}{% assign dest_abbr = 'LAKE' %}
+{% elsif dest_lower == 'mcar' or dest_lower contains 'macarthur' %}{% assign dest_abbr = 'MCAR' %}
+{% elsif dest_lower == 'mlbr' or dest_lower contains 'millbrae' %}{% assign dest_abbr = 'MLBR' %}
+{% elsif dest_lower == 'mlpt' or dest_lower contains 'milpitas' %}{% assign dest_abbr = 'MLPT' %}
+{% elsif dest_lower == 'mont' or dest_lower contains 'montgomery' %}{% assign dest_abbr = 'MONT' %}
+{% elsif dest_lower == 'nbrk' or dest_lower contains 'north berkeley' %}{% assign dest_abbr = 'NBRK' %}
+{% elsif dest_lower == 'oakl' or dest_lower contains 'oakland' and dest_lower contains 'airport' %}{% assign dest_abbr = 'OAKL' %}
+{% elsif dest_lower == 'orin' or dest_lower contains 'orinda' %}{% assign dest_abbr = 'ORIN' %}
+{% elsif dest_lower == 'pctr' or dest_lower contains 'pittsburg center' %}{% assign dest_abbr = 'PCTR' %}
+{% elsif dest_lower == 'pitt' or dest_lower contains 'pittsburg' or dest_lower contains 'bay point' %}{% assign dest_abbr = 'PITT' %}
+{% elsif dest_lower == 'phil' or dest_lower contains 'pleasant hill' %}{% assign dest_abbr = 'PHIL' %}
+{% elsif dest_lower == 'powl' or dest_lower contains 'powell' %}{% assign dest_abbr = 'POWL' %}
+{% elsif dest_lower == 'rich' or dest_lower contains 'richmond' %}{% assign dest_abbr = 'RICH' %}
+{% elsif dest_lower == 'rock' or dest_lower contains 'rockridge' %}{% assign dest_abbr = 'ROCK' %}
+{% elsif dest_lower == 'sbrn' or dest_lower contains 'san bruno' %}{% assign dest_abbr = 'SBRN' %}
+{% elsif dest_lower == 'sfia' or dest_lower contains 'sfo' or dest_lower contains 'san francisco' and dest_lower contains 'airport' or dest_lower contains 'international airport' %}{% assign dest_abbr = 'SFIA' %}
+{% elsif dest_lower == 'sanl' or dest_lower contains 'san leandro' %}{% assign dest_abbr = 'SANL' %}
+{% elsif dest_lower == 'ssan' or dest_lower contains 'south san francisco' %}{% assign dest_abbr = 'SSAN' %}
+{% elsif dest_lower == 'ucty' or dest_lower contains 'union city' %}{% assign dest_abbr = 'UCTY' %}
+{% elsif dest_lower == 'wcrk' or dest_lower contains 'walnut creek' %}{% assign dest_abbr = 'WCRK' %}
+{% elsif dest_lower == 'woak' or dest_lower contains 'west oakland' %}{% assign dest_abbr = 'WOAK' %}
+{% else %}{% assign dest_abbr = root.destination %}
+{% endif %}

@@ -123,12 +123,17 @@ custom_fields:
   - Walnut Creek: WCRK
   - West Dublin / Pleasanton: WDUB
   - West Oakland: WOAK
+- keyname: show_icons
+  field_type: boolean
+  default: true
+  name: Show Icons
+  description: Display icons next to departure and arrival times
 - keyname: author_bio
   field_type: author_bio
   name: About This Plugin
-  description: Real-time Bay Area Rapid Transit commute times at a glance. Displays next 3 departures and arrival times between any two BART stations on your TRMNL.
+  description: Real-time Bay Area Rapid Transit commute times at a glance. Displays next 4 departures and arrival times between any two BART stations on your TRMNL.
   github_url: https://github.com/jetsharklambo/BARTcom-TRMNL
   learn_more_url: https://maximo.is/jetsharklambo
   email_address: jetsharklambo+bartcom@gmail.com
-name: BARTcom
+name: BART Commute
 refresh_interval: 30
